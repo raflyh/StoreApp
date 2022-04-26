@@ -13,14 +13,14 @@ namespace ProductService.Data
             }
         }
 
-        private static void SeedData(AppDbContext? appDbContext, bool isProd)
+        private static void SeedData(AppDbContext? context, bool isProd)
         {
             if (isProd)
             {
                 Console.WriteLine("--> Migrating --");
                 try
                 {
-                    appDbContext.Database.Migrate();
+                    context.Database.Migrate();
                 }
                 catch (Exception ex)
                 {
@@ -28,7 +28,7 @@ namespace ProductService.Data
                 }
             }
 
-            if (!appDbContext.Products.Any())
+            if (!context.Products.Any())
             {
                 Console.WriteLine("--> Seeding Data --");
                 var products = new List<Product>()
@@ -46,8 +46,8 @@ namespace ProductService.Data
                         }
                     }
                 };
-                products.ForEach(p => appDbContext.Products.AddRange(p));
-                appDbContext.SaveChanges();
+                products.ForEach(p => context.Products.AddRange(p));
+                context.SaveChanges();
             }
             else
             {
