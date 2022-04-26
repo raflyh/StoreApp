@@ -11,6 +11,6 @@ namespace ShippingService.Models
         public string ShippingStatus { get; set; }
         [Required]
         public int InVoiceId { get; set; }
-        public InVoice inVoice { get; set; }
+        public InVoice InVoice { get; set; }
     }
 }
