@@ -5,7 +5,7 @@ namespace ProductService.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> opt):base(opt)
+        public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
         {
         }
         public DbSet<Product>? Products { get; set; }
@@ -13,9 +13,9 @@ namespace ProductService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>()
-                .HasMany(x => x.Categories)
-                .WithMany(s => s.Products);
+            modelBuilder.Entity<Category>()
+                .HasMany(x => x.Products)
+                .WithOne(s => s.Category);
         }
     }
 }
