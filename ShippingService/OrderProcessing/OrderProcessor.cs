@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ShippingService.Dtos;
 using ShippingService.EventProcessing;
 using System.Text.Json;
 
@@ -54,7 +55,7 @@ namespace ShippingService.OrderProcessing
                 }
             }
 
-        private object DetermineOrder(string message)
+        private OrderType DetermineOrder(string message)
         {
             Console.WriteLine("--> Menentukan Order");
             var orderType = JsonSerializer.Deserialize<GenericOrderDto>(notificationMessage);
