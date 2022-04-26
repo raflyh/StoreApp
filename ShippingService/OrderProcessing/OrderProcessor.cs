@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using ShippingService.Data;
 using ShippingService.Dtos;
 using ShippingService.EventProcessing;
+using ShippingService.Models;
 using System.Text.Json;
 
 namespace ShippingService.OrderProcessing
@@ -29,12 +31,12 @@ namespace ShippingService.OrderProcessing
             }
         }
 
-        private void AddInVoice(string message)
+        private void AddInVoice(string invoicePublishedMessage)
         {
             using (var scope = _scopeFactory.CreateScope())
             {
-                var repo = scope.ServiceProvider.GetRequiredService<IShippingRepo>();
-                var inVoicePublishedDto = JsonSerializer.Deserialize<InVoicePublishedDto>(inVoicePublishedMessage);
+                var repo = scope.ServiceProvider.GetRequiredService<IShipping>();
+                var inVoicePublishedDto = JsonSerializer.Deserialize<InvoicePublishedDto>(invoicePublishedMessage);
                 try
                 {
                     var inVoice = _mapper.Map<InVoice>(inVoicePublishedDto);
@@ -55,7 +57,9 @@ namespace ShippingService.OrderProcessing
                 }
             }
 
-        private OrderType DetermineOrder(string message)
+        }
+
+        private OrderType DetermineOrder(string notificationMessage)
         {
             Console.WriteLine("--> Menentukan Order");
             var orderType = JsonSerializer.Deserialize<GenericOrderDto>(notificationMessage);
@@ -70,10 +74,11 @@ namespace ShippingService.OrderProcessing
             }
         }
 
-        enum OrderType
-        {
-            InVoicePublished,
-            Undetermined
-        }
+    }
+    enum OrderType
+    {
+        InVoicePublished,
+        Undetermined
     }
 }
+

@@ -34,7 +34,7 @@ namespace ShippingService.Data
 
         public IEnumerable<InVoice> GetAllInVoices()
         {
-            return _context.InVoices.ToList();
+            return _context.inVoices.ToList();
         }
 
         public Shipping GetShipping(int inVoiceId, int shippingId)
