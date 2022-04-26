@@ -18,7 +18,7 @@ if (builder.Environment.IsProduction())
 else
 {
     Console.WriteLine("--> Dev Env: Using InMem Db");
-    builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
+    builder.Services.AddDbContext<AppDbContext>();
 }
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
