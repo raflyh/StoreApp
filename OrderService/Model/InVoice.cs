@@ -6,5 +6,6 @@
         public int TotalCost { get; set; }
         public DateTime Date { get; set; }
         public string OrderStatus { get; set; }
+        public Product Product { get; set; }
     }
 }
