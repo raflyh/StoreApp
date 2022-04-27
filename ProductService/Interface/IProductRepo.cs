@@ -8,7 +8,7 @@ namespace ProductService.Interface
         Product GetById(int id);
         void CreateProduct(Product product);
         void RemoveProduct(int id);
-        bool UpdateProduct(int id,Product product);
+        Product UpdateProduct(int id,Product product);
         bool SaveChanges();
     }
 }
