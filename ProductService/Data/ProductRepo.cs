@@ -17,6 +17,7 @@ namespace ProductService.Interface
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
             _context.Products.Add(product);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Product> GetAllProducts()
@@ -27,6 +28,11 @@ namespace ProductService.Interface
         public Product GetById(int id)
         {
             return _context.Products.FirstOrDefault(p => p.Id == id);
+        }
+
+        public Product GetProductByName(string name)
+        {
+            return _context.Products.FirstOrDefault(p => p.Name == name);
         }
 
         public void RemoveProduct(int id)
