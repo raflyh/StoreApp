@@ -1,23 +1,42 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using OrderService.Interface;
 using OrderService.Model;
 
 namespace OrderService.Data
 {
-    public class InVoiceRepo : IInVoice
+    public class InVoiceRepo : IInVoiceRepo
     {
-        public IEnumerable<InVoice> GetAllInvoice()
+        private readonly AppDbContext _context;
+
+        public InVoiceRepo(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public void CreateInVoice(InVoice invoice)
+        {
+            if (invoice == null)
+                throw new ArgumentNullException(nameof(invoice));
+            _context.Add(invoice);
         }
 
-        public InVoice GetById(int id)
+        public IEnumerable<InVoice> GetAllInvoice()
         {
-            throw new NotImplementedException();
+            return _context.InVoices.AsNoTracking().ToList();
         }
 
         public InVoice GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public InVoice GetOrderById(int id)
+        {
+            return _context.InVoices.FirstOrDefault(i => i.Id == id);
+        }
+
+        public bool SaveChanges()
         {
             throw new NotImplementedException();
         }

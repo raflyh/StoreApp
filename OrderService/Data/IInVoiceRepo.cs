@@ -2,11 +2,13 @@
 
 namespace OrderService.Interface
 {
-    public interface IInVoice
+    public interface IInVoiceRepo
     {
         IEnumerable<InVoice> GetAllInvoice();
-        InVoice GetById(int id);
+        InVoice GetOrderById(int id);
         InVoice GetByName(string name);
+        void CreateInVoice(InVoice invoice);
+        bool SaveChanges();
 
     }
 }

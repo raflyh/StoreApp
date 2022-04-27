@@ -1,7 +1,9 @@
-﻿namespace OrderService.SyncDataService
+﻿using OrderService.Dtos;
+
+namespace OrderService.SyncDataService
 {
     public interface IProductDataClient
     {
-        Task SendProductToInVoice();
+        Task SendProductToInVoice(OrderReadDto orderRead);
     }
 }

@@ -16,7 +16,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("StoreConnection")));
 
-builder.Services.AddScoped<IInVoice, InVoiceRepo>();
+builder.Services.AddScoped<IInVoiceRepo, InVoiceRepo>();
 
 builder.Services.AddSingleton<IMessageBusClient,MessageBusClient>();
 
