@@ -24,14 +24,14 @@ namespace ProductService.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> GetProducts()
         {
-            Console.WriteLine("--> Get Platforms");
+            Console.WriteLine("--> Get Products");
             var results = _repository.GetAllProducts();
             var productReadDTO = _mapper.Map<IEnumerable<ProductReadDTO>>(results);
             return Ok(productReadDTO);
         }
 
         // GET api/<ProductsController>/5
-        [HttpGet("{id}", Name = "GetProductsById")]
+        [HttpGet("{id}", Name = "GetProductById")]
         public ActionResult<ProductReadDTO> GetProductById(int id)
         {
             var results = _repository.GetById(id);

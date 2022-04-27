@@ -41,12 +41,12 @@ namespace ProductService.Interface
             return (_context.SaveChanges()>=0);
         }
 
-        public bool UpdateProduct(int id, Product product)
+        public Product UpdateProduct(int id, Product product)
         {
             var prod = GetById(id);
             prod.Name = product.Name;
             _context.SaveChanges();
-            return true;
+            return prod;
         }
     }
 }
