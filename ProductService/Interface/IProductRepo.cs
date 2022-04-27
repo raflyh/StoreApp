@@ -6,9 +6,9 @@ namespace ProductService.Interface
     {
         IEnumerable<Product> GetAllProducts();
         Product GetById(int id);
-        void Add(Product product);
-        void Remove(int id);
-        bool Update(int id,Product product);
+        void CreateProduct(Product product);
+        void RemoveProduct(int id);
+        Product UpdateProduct(int id,Product product);
         bool SaveChanges();
     }
 }
