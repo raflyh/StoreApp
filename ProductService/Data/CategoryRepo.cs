@@ -1,28 +1,50 @@
-﻿using ProductService.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductService.Interface;
 using ProductService.Models;
 
 namespace ProductService.Data
 {
     public class CategoryRepo : ICategoryRepo
     {
-        public void Add(Category Category)
+        private readonly AppDbContext _context;
+
+        public CategoryRepo(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public void CreateCategory(Category category)
+        {
+            if (category == null)
+                throw new ArgumentNullException(nameof(category));
+            _context.Categories.Add(category);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Category> GetAllCategories()
         {
-            throw new NotImplementedException();
+            return _context.Categories.OrderBy(s => s.Name).ToList();
         }
 
-        public Category GetCategoryById(int id)
+        public Category GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Categories.FirstOrDefault(p => p.Id == id);
+        }
+
+        public Category GetCategoryByName(string name)
+        {
+            var category = _context.Categories.FirstOrDefault(c => c.Name == name);
+            return category;
+        }
+
+        public Category GetCategoryWithProducts(string name)
+        {
+            var category = _context.Categories.Include(s => s.Products).FirstOrDefault(c => c.Name == name);
+            return category;
         }
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return (_context.SaveChanges() >= 0);
         }
     }
 }

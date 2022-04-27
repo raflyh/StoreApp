@@ -22,7 +22,7 @@ namespace ProductService.Controllers
         }
         // GET: api/<ProductsController>
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetProducts()
+        public ActionResult<IEnumerable<Product>> GetProducts()
         {
             Console.WriteLine("--> Get Products");
             var results = _repository.GetAllProducts();
@@ -39,6 +39,17 @@ namespace ProductService.Controllers
 
             var productReadDTO = _mapper.Map<ProductReadDTO>(results);
             return productReadDTO;
+        }
+
+        [HttpGet("Search/{name}")]
+        public ActionResult<IEnumerable<ProductReadDTO>> SearchProduct(string name)
+        {
+            var results = _repository.GetProductByName(name);
+            var productReadDTO = _mapper.Map<ProductReadDTO>(results);
+            if (productReadDTO == null)
+                return NotFound();
+            else
+                return Ok(productReadDTO);
         }
 
         // POST api/<ProductsController>

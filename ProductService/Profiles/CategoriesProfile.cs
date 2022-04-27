@@ -9,7 +9,7 @@ namespace ProductService.Profiles
         public CategoriesProfile()
         {
             CreateMap<Category, CategoryReadDTO>()
-                .ForMember(s => s.productReadDTOs, c => c.MapFrom(x => x.Products));
+                .ForMember(s => s.Products, c => c.MapFrom(x => x.Products));
             CreateMap<CategoryCreateDTO, Category>();
         }
     }

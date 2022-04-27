@@ -5,8 +5,10 @@ namespace ProductService.Interface
     public interface ICategoryRepo
     {
         IEnumerable<Category> GetAllCategories();
-        Category GetCategoryById(int id);
-        void Add(Category Category);
+        Category GetById(int id);
+        Category GetCategoryWithProducts(string name);
+        Category GetCategoryByName(string name);
+        void CreateCategory(Category category);
         bool SaveChanges();
     }
 }

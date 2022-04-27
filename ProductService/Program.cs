@@ -27,6 +27,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Inject Repo
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 
 var app = builder.Build();
 
