@@ -4,7 +4,7 @@ namespace ProductService.Interface
 {
     public interface ICategoryRepo
     {
-        IEnumerable<Category> GetAllProducts();
+        IEnumerable<Category> GetAllCategories();
         Category GetCategoryById(int id);
         void Add(Category Category);
         bool SaveChanges();
