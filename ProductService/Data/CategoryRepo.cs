@@ -10,7 +10,7 @@ namespace ProductService.Data
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Category> GetAllProducts()
+        public IEnumerable<Category> GetAllCategories()
         {
             throw new NotImplementedException();
         }

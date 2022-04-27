@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using ProductService.DTOs;
+using ProductService.Interface;
+using ProductService.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +12,62 @@ namespace ProductService.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IProductRepo _repository;
+        private readonly IMapper _mapper;
+
+        public ProductsController(IProductRepo repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
         // GET: api/<ProductsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<string>> GetProducts()
         {
-            return new string[] { "value1", "value2" };
+            Console.WriteLine("--> Get Platforms");
+            var results = _repository.GetAllProducts();
+            var productReadDTO = _mapper.Map<IEnumerable<ProductReadDTO>>(results);
+            return Ok(productReadDTO);
         }
 
         // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetProductsById")]
+        public ActionResult<ProductReadDTO> GetProductById(int id)
         {
-            return "value";
+            var results = _repository.GetById(id);
+            if (results == null) return NotFound();
+
+            var productReadDTO = _mapper.Map<ProductReadDTO>(results);
+            return productReadDTO;
         }
 
         // POST api/<ProductsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<ProductCreateDTO> CreateProduct(ProductCreateDTO productCreateDTO)
         {
+            var newProduct = _mapper.Map<Product>(productCreateDTO);
+            _repository.CreateProduct(newProduct);
+            _repository.SaveChanges();
+
+            var productReadDTO = _mapper.Map<ProductReadDTO>(newProduct);
+            return CreatedAtRoute("GetProductById", new { Id=productReadDTO.Id }, productReadDTO);
         }
 
         // PUT api/<ProductsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<ProductCreateDTO> Put(int id, ProductCreateDTO productCreateDTO)
         {
+            var updateProduct = _mapper.Map<Product>(productCreateDTO);
+            var result = _repository.UpdateProduct(id, updateProduct);
+            var productReadDTO = _mapper.Map<ProductReadDTO>(result);
+            return Ok(productReadDTO);
         }
 
         // DELETE api/<ProductsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _repository.RemoveProduct(id);
         }
     }
 }
