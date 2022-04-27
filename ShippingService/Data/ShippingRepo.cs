@@ -48,6 +48,12 @@ namespace ShippingService.Data
             return _context.Shippings.FirstOrDefault(c => c.InVoiceId == inVoiceId);
         }
 
+        public InVoice GetShippingForCodeInVoice(string codeInvoice)
+        {
+            return _context.inVoices.Where(s => s.CodeInvoice.Contains(codeInvoice)).FirstOrDefault();       
+        }
+
+
         public bool InVoiceExist(int inVoiceId)
         {
             return _context.inVoices.Any(p => p.Id == inVoiceId);
@@ -57,5 +63,7 @@ namespace ShippingService.Data
         {
             return (_context.SaveChanges() >= 0);
         }
+
+
     }
 }

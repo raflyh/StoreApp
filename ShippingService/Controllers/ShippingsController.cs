@@ -45,6 +45,17 @@ namespace ShippingService.Controllers
             return Ok(_mapper.Map<ShippingReadDto>(shipping));
         }
 
+        [HttpGet("{CodeInVoice}")]
+        public ActionResult<InvoiceReadDto> GetShippingForCodeInVoice(string codeInvoice)
+        {
+            Console.WriteLine($"----> satu shipping dengan CodeInvoice {codeInvoice}");
+
+            var shipping = _repository.GetShippingForCodeInVoice(codeInvoice);
+            if (shipping == null) return NotFound();
+
+            return Ok(_mapper.Map<InvoiceReadDto>(shipping));
+        }
+
         [HttpPost]
         public ActionResult<ShippingReadDto> CreateShippingForInVoice(int inVoiceId,
             ShippingCreateDto shippingCreateDto)

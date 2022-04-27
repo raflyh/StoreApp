@@ -28,7 +28,7 @@ namespace OrderService.Data
 
         public InVoice GetByName(string name)
         {
-            throw new NotImplementedException();
+            return _context.InVoices.Where(s=>s.CodeInvoice.Contains(name)).FirstOrDefault();    
         }
 
         public InVoice GetOrderById(int id)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductService.DTOs;
 using ProductService.Interface;
 using ProductService.Models;
+using ProductService.SyncDataServices.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,11 +15,13 @@ namespace ProductService.Controllers
     {
         private readonly IProductRepo _repository;
         private readonly IMapper _mapper;
+        private readonly IOrderDataClient _orderDataClient;
 
-        public ProductsController(IProductRepo repository, IMapper mapper)
+        public ProductsController(IProductRepo repository, IMapper mapper, IOrderDataClient orderDataClient)
         {
             _repository = repository;
             _mapper = mapper;
+            _orderDataClient = orderDataClient;
         }
         // GET: api/<ProductsController>
         [HttpGet]
@@ -54,13 +57,23 @@ namespace ProductService.Controllers
 
         // POST api/<ProductsController>
         [HttpPost]
-        public ActionResult<ProductCreateDTO> CreateProduct(ProductCreateDTO productCreateDTO)
+        public async Task<ActionResult<ProductCreateDTO>> CreateProduct(ProductCreateDTO productCreateDTO)
         {
             var newProduct = _mapper.Map<Product>(productCreateDTO);
             _repository.CreateProduct(newProduct);
             _repository.SaveChanges();
 
             var productReadDTO = _mapper.Map<ProductReadDTO>(newProduct);
+
+            try
+            {
+                await _orderDataClient.SendProductToOrder(productReadDTO);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"-----> Tidak dapat mengirim sync data: {ex.Message} ");
+            }
+
             return CreatedAtRoute("GetProductById", new { Id=productReadDTO.Id }, productReadDTO);
         }
 

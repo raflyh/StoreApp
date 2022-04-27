@@ -46,6 +46,17 @@ namespace OrderService.Controllers
             return orderReadDto;
         }
 
+        [HttpGet("{CodeInVoice}")]
+        public ActionResult<OrderReadDto> GetByName(string name)
+        {
+            var results = _repository.GetByName(name);
+            if (results == null) return NotFound();
+
+            var orderReadDto = _mapper.Map<OrderReadDto>(results);
+            return orderReadDto;
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<OrderReadDto>> CreatePlatform(OrderCreateDto orderCreateDto)
         {

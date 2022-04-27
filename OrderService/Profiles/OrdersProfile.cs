@@ -11,6 +11,7 @@ namespace OrderService.Profiles
             CreateMap<InVoice, OrderReadDto>();
             CreateMap<OrderCreateDto, InVoice>();
             CreateMap<OrderReadDto, OrderPublishDto>();
+            CreateMap<Product, ProductReadDto>();
 
         }
     }
