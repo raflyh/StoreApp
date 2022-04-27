@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OrderService.AsyncDataService;
 using OrderService.Data;
 using OrderService.Interface;
 
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("StoreConnection")));
 
 builder.Services.AddScoped<IInVoice, InVoiceRepo>();
+
+builder.Services.AddSingleton<IMessageBusClient,MessageBusClient>();
 
 var app = builder.Build();
 

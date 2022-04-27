@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ShippingService.AsyncDataServices;
 using ShippingService.Data;
+using ShippingService.EventProcessing;
+using ShippingService.OrderProcessing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Menambahkan DbContext
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
+//Menambahkan Shipping Repository
+builder.Services.AddScoped<IShipping,ShippingRepo>();
+//Menambahkan proses masuk order
+builder.Services.AddSingleton<IOrderProcessor,OrderProcessor>();
+
+builder.Services.AddHostedService<MessageBusSubscriber>();
+
+
 
 
 var app = builder.Build();

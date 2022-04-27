@@ -7,7 +7,7 @@ using ShippingService.Models;
 
 namespace ShippingService.Controllers
 {
-    [Route("api/Shipping/Orders/{OrderById}/[controller]")]
+    [Route("api/c/inVoices/{inVoiceId}/[controller]")]
     [ApiController]
     public class ShippingsController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace ShippingService.Controllers
         public ActionResult<IEnumerable<ShippingReadDto>> GetShippingsForInVoice(int inVoiceId)
         {
             Console.WriteLine($"----> Semua Shipping dari invoice {inVoiceId}");
-            if (!_repository.InVoiceExist(inVoiceId)) ;
+            if (!_repository.InVoiceExist(inVoiceId));
             return NotFound();
 
             var shippings = _repository.GetShippingForInVoice(inVoiceId);
@@ -33,35 +33,35 @@ namespace ShippingService.Controllers
         }
 
         [HttpGet("{ShippingId}")]
-        public ActionResult<ShippingReadDto> GetShippingForInVoice(int invoiceId, int shippingId)
+        public ActionResult<ShippingReadDto> GetShippingForInVoice(int inVoiceId, int shippingId)
         {
-            Console.WriteLine($"--> Satu shipping dari invoice {invoiceId} / {shippingId}");
-            if (!_repository.InVoiceExist(invoiceId))
+            Console.WriteLine($"--> Satu shipping dari invoice {inVoiceId} / {shippingId}");
+            if (!_repository.InVoiceExist(inVoiceId))
                 return NotFound();
 
-            var shipping = _repository.GetShipping(invoiceId, shippingId);
+            var shipping = _repository.GetShipping(inVoiceId, shippingId);
             if (shipping == null) return NotFound();
 
             return Ok(_mapper.Map<ShippingReadDto>(shipping));
         }
 
         [HttpPost]
-        public ActionResult<ShippingReadDto> CreateShippingForInVoice(int invoiceId,
+        public ActionResult<ShippingReadDto> CreateShippingForInVoice(int inVoiceId,
             ShippingCreateDto shippingCreateDto)
         {
-            Console.WriteLine($"--> Menambahkan shipping untuk invoice {invoiceId}");
+            Console.WriteLine($"--> Menambahkan shipping untuk invoice {inVoiceId}");
 
-            if (!_repository.InVoiceExist(invoiceId))
+            if (!_repository.InVoiceExist(inVoiceId))
                 return NotFound();
 
             var shipping = _mapper.Map<Shipping>(shippingCreateDto);
-            _repository.CreateShipping(invoiceId, shipping);
+            _repository.CreateShipping(inVoiceId, shipping);
             _repository.SaveChange();
 
             var shippingReadDto = _mapper.Map<ShippingReadDto>(shipping);
 
             return CreatedAtAction(nameof(GetShippingForInVoice),
-                new { invoiceId = invoiceId, shippingId = shippingReadDto.Id },
+                new { inVoiceId = inVoiceId, shippingId = shippingReadDto.Id },
                     shippingReadDto);
         }
     }

@@ -6,7 +6,7 @@ using ShippingService.Dtos;
 
 namespace ShippingService.Controllers
 {
-    [Route("api/Shipping/[controller]")]
+    [Route("api/c/[controller]")]
     [ApiController]
     public class InVoicesController : ControllerBase
     {
