@@ -11,10 +11,10 @@ namespace ShippingService.Controllers
     [ApiController]
     public class ShippingsController : ControllerBase
     {
-        private readonly ShippingRepo _repository;
+        private readonly IShipping _repository;
         private readonly IMapper _mapper;
 
-        public ShippingsController(ShippingRepo repository, IMapper mapper)
+        public ShippingsController(IShipping repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -46,11 +46,11 @@ namespace ShippingService.Controllers
         }
 
         [HttpGet("{CodeInVoice}")]
-        public ActionResult<InvoiceReadDto> GetShippingForCodeInVoice(string codeInvoice)
+        public ActionResult<InvoiceReadDto> GetShippingForCodeInVoice(int inVoiceId)
         {
-            Console.WriteLine($"----> satu shipping dengan CodeInvoice {codeInvoice}");
+            Console.WriteLine($"----> satu shipping dengan CodeInvoice {inVoiceId}");
 
-            var shipping = _repository.GetShippingForCodeInVoice(codeInvoice);
+            var shipping = _repository.GetShippingForInVoice(inVoiceId);
             if (shipping == null) return NotFound();
 
             return Ok(_mapper.Map<InvoiceReadDto>(shipping));

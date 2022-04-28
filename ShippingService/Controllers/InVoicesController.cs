@@ -10,10 +10,10 @@ namespace ShippingService.Controllers
     [ApiController]
     public class InVoicesController : ControllerBase
     {
-        private readonly ShippingRepo _repository;
+        private readonly IShipping _repository;
         private readonly IMapper _mapper;
 
-        public InVoicesController(ShippingRepo repository, IMapper mapper)
+        public InVoicesController(IShipping repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
