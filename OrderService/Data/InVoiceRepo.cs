@@ -17,44 +17,50 @@ namespace OrderService.Data
 
         public void CreateInVoice(int productId, InVoice inVoice)
         {
-            if (inVoice == null)
+            if(inVoice == null)
                 throw new ArgumentNullException(nameof(inVoice));
-            _context.Add(inVoice);
+
+            inVoice.ProductId = productId;
+            _context.InVoices.Add(inVoice);
         }
 
-        public void CreateProduct(InVoice invoice)
+        public void CreateProduct(Product prod)
         {
-            throw new NotImplementedException();
+            if(prod == null)
+                throw new ArgumentNullException(nameof(prod));
+            _context.Products.Add(prod);
+        }
+            
+        public bool ExternalProductExist(int externalProductId)
+        {
+            return _context.Products.Any(p=>p.ExternalId == externalProductId);
         }
 
-        public IEnumerable<InVoice> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
-            return _context.InVoices.AsNoTracking().ToList();
-        }
-
-        public Product GetByName(string name)
-        {
-            return _context.Products.Where(s => s.Name.Contains(name)).FirstOrDefault();
+            return _context.Products.ToList();
         }
 
         public InVoice GetInVoice(int productId, int inVoiceId)
         {
-            throw new NotImplementedException();
+            return _context.InVoices.Where(i => i.ProductId == productId &&
+            i.Id == inVoiceId).FirstOrDefault(); ;
         }
 
-        public IEnumerable<InVoice> GetOrderForProduct(int productId)
+
+        public Product GetProductByName(string name)
         {
-            throw new NotImplementedException();
+            return _context.Products.FirstOrDefault(p => p.Name == name);
         }
 
-        public Product GetProductById(int id)
+        public bool ProductExist(int productId)
         {
-            return _context.Products.FirstOrDefault(i => i.Id == id);
+            return _context.Products.Any(p => p.Id == productId);
         }
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return (_context.SaveChanges() >= 0);
         }
     }
 }
