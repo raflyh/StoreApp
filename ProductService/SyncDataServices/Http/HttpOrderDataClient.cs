@@ -20,9 +20,15 @@ namespace ProductService.SyncDataServices.Http
             var response = await _httpClient.PostAsync($"{_configuraion["OrderService"]}", httpContent);
 
             if (response.IsSuccessStatusCode)
+            {
                 Console.WriteLine("--> Success Sending Product to Order Service <--");
+            }
+
             else
+            {
                 Console.WriteLine("--> Failed Sending Product to Order Service <--");
+            }
+                
         }
     }
 }
