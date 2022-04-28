@@ -9,7 +9,7 @@ using OrderService.SyncDataService;
 
 namespace OrderService.Controllers
 {
-    [Route("api/[controller]")]
+    /*[Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -81,5 +81,5 @@ namespace OrderService.Controllers
             return CreatedAtAction(nameof(GetOrderById), new { Id = orderReadDto.Id },
                 orderReadDto);
         }
-    }
+    }*/
 }
