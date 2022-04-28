@@ -1,31 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: products-depl
+  name: orders-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: productservice
+      app: orderservice
   template:
     metadata:
       labels:
-        app: productmservice
+        app: orderservice
     spec:
       containers:
-        - name: productservice
-          image: haekalakmal/productservice:latest
+        - name: orderservice
+          image: haekalakmal/orderservice:latest
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: products-clusterip-srv
+  name: orders-clusterip-srv
 spec:
   type: ClusterIP
   selector: 
-    app: productservice
+    app: orderservice
   ports :
-  - name: productservice 
+  - name: orderservice 
     port: TCP
     port: 80
     targetPort: 80

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shippings-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shippingservice
+  template:
+    metadata:
+      labels:
+        app: shippingservice
+    spec:
+      containers:
+        - name: shippingservice
+          image: haekalakmal/shippingservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shippings-clusterip-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: shippingservice
+  ports :
+  - name: shippingservice 
+    port: TCP
+    port: 80
+    targetPort: 80
