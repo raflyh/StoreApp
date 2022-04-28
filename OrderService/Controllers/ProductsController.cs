@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Dtos;
 using OrderService.Interface;
+using OrderService.Model;
 using ProductService.DTOs;
 
 namespace OrderService.Controllers
@@ -20,19 +21,36 @@ namespace OrderService.Controllers
             _mapper = mapper;
         }
 
-        public ActionResult<IEnumerable<ProductReadDto>> GetProducts()
-        {
-            Console.WriteLine("--> Ambil product dari order");
-            var results = _repository.GetAllProducts();
-            var productReadDto = _mapper.Map<IEnumerable<ProductReadDto>>(results);
-            return Ok(productReadDto);
-        }
+        //[HttpGet]
+        //public ActionResult<IEnumerable<ProductReadDto>> GetProducts()
+        //{
+        //    Console.WriteLine("--> Ambil product dari order");
+        //    var results = _repository.GetAllProducts();
+        //    var productReadDto = _mapper.Map<IEnumerable<ProductReadDto>>(results);
+        //    return Ok(productReadDto);
+        //}
+
+        //[HttpPost]
+        //public ActionResult TestInboundConnection()
+        //{
+        //    Console.WriteLine("----> Inbound Post OrderService");
+        //    return Ok("Inbound tes dari product controller");
+        //}
 
         [HttpPost]
-        public ActionResult TestInboundConnection()
+        public async Task<ActionResult<ProductReadDto>> Post([FromBody] ProductPublishedDto productPublishedDto)
         {
-            Console.WriteLine("----> Inbound Post OrderService");
-            return Ok("Inbound tes dari product controller");
+            try
+            {
+                var products = _mapper.Map<Product>(productPublishedDto);
+                var result = await _repository.CreateProduct(products);
+                Console.WriteLine("--> Products succesfully added!");
+                return Ok(_mapper.Map<ProductReadDto>(result));
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

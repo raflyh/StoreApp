@@ -8,7 +8,7 @@ namespace OrderService.Model
         [Required]
         public int Id { get; set; }
         public string Name {get; set;}
-        public int ExternalId { get; set; }
+        public double Price { get; set; }
         public InVoice InVoice { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace OrderService.Interface
         //product
         IEnumerable<Product> GetAllProducts();
         Product GetProductByName(string name);
-        void CreateProduct(Product prod);
+        Task<Product> CreateProduct(Product prod);
         bool ProductExist(int productId);
         bool ExternalProductExist(int externalProductId);
         

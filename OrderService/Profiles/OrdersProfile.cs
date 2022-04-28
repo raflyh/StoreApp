@@ -11,8 +11,7 @@ namespace OrderService.Profiles
             CreateMap<Product, ProductReadDto>();
             CreateMap<OrderCreateDto, InVoice>();
             CreateMap<InVoice, OrderReadDto>();
-            CreateMap<ProductPublishedDto, Product>().ForMember(dest=>dest.ExternalId,
-                opt=>opt.MapFrom(src=>src.Id));
+            CreateMap<ProductPublishedDto, Product>();
 
            
             

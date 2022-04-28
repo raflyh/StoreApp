@@ -24,16 +24,25 @@ namespace OrderService.Data
             _context.InVoices.Add(inVoice);
         }
 
-        public void CreateProduct(Product prod)
+        public async Task<Product> CreateProduct(Product prod)
         {
-            if(prod == null)
-                throw new ArgumentNullException(nameof(prod));
-            _context.Products.Add(prod);
+
+            try
+            {
+                _context.Products.Add(prod);
+                await _context.SaveChangesAsync();
+                return prod;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                throw new Exception($"Error: {dbEx.Message}");
+            }
         }
             
         public bool ExternalProductExist(int externalProductId)
         {
-            return _context.Products.Any(p=>p.ExternalId == externalProductId);
+            //return _context.Products.Any(p=>p.ExternalId == externalProductId);
+            return false;
         }
 
         public IEnumerable<Product> GetAllProducts()
