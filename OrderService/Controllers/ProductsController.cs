@@ -6,7 +6,7 @@ using ProductService.DTOs;
 
 namespace OrderService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/c/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
