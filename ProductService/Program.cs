@@ -11,9 +11,9 @@ builder.Services.AddControllers();
 if (builder.Environment.IsProduction())
 {
     Console.WriteLine("--> Using SQL Server Db");
-    //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    //    builder.Configuration.GetConnectionString("ProductsConn")
-    //    ));
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ProductsConn")
+        ));
 }
 else
 {
