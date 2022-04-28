@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OrderService.Interface;
+using ProductService.DTOs;
 
 namespace OrderService.Controllers
 {
