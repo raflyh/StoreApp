@@ -5,7 +5,6 @@ using OrderService.AsyncDataService;
 using OrderService.Dtos;
 using OrderService.Interface;
 using OrderService.Model;
-using OrderService.SyncDataService;
 
 namespace OrderService.Controllers
 {

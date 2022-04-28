@@ -13,8 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("StoreConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("InMem"));
 
 builder.Services.AddScoped<IInVoiceRepo, InVoiceRepo>();
 
@@ -30,7 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
-app.UseAuthentication();
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

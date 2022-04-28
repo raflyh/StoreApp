@@ -7,17 +7,18 @@ namespace ProductService.SyncDataServices.Http
     public class HttpOrderDataClient : IOrderDataClient
     {
         private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuraion;
+        private readonly IConfiguration _configuration;
 
         public HttpOrderDataClient(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
-            _configuraion = configuration;
+            _configuration = configuration;
         }
+
         public async Task SendProductToOrder(ProductReadDTO product)
         {
             var httpContent = new StringContent(JsonSerializer.Serialize(product), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync($"{_configuraion["OrderService"]}", httpContent);
+            var response = await _httpClient.PostAsync($"{_configuration["OrderService"]}", httpContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -28,7 +29,6 @@ namespace ProductService.SyncDataServices.Http
             {
                 Console.WriteLine("--> Failed Sending Product to Order Service <--");
             }
-                
         }
     }
 }

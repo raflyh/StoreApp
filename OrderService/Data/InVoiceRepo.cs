@@ -24,18 +24,16 @@ namespace OrderService.Data
             _context.InVoices.Add(inVoice);
         }
 
-        public void CreateProduct(Product prod)
+        public Product CreateProduct(Product prod)
         {
             if(prod == null)
                 throw new ArgumentNullException(nameof(prod));
+            _context.Categories.Add(prod.Category);
             _context.Products.Add(prod);
+            _context.SaveChanges();
+            return prod;
         }
             
-        public bool ExternalProductExist(int externalProductId)
-        {
-            return _context.Products.Any(p=>p.ExternalId == externalProductId);
-        }
-
         public IEnumerable<Product> GetAllProducts()
         {
             return _context.Products.ToList();
@@ -47,15 +45,14 @@ namespace OrderService.Data
             i.Id == inVoiceId).FirstOrDefault(); ;
         }
 
+        public Product GetProductById(int id)
+        {
+            return _context.Products.FirstOrDefault(p => p.Id == id);
+        }
 
         public Product GetProductByName(string name)
         {
             return _context.Products.FirstOrDefault(p => p.Name == name);
-        }
-
-        public bool ProductExist(int productId)
-        {
-            return _context.Products.Any(p => p.Id == productId);
         }
 
         public bool SaveChanges()

@@ -25,7 +25,7 @@ namespace ProductService.Controllers
         }
         // GET: api/<ProductsController>
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductReadDTO>>> GetProducts()
         {
             Console.WriteLine("--> Get Products");
             var results = _repository.GetAllProducts();
@@ -65,14 +65,7 @@ namespace ProductService.Controllers
 
             var productReadDTO = _mapper.Map<ProductReadDTO>(newProduct);
 
-            try
-            {
-                await _orderDataClient.SendProductToOrder(productReadDTO);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"-----> Tidak dapat mengirim sync data: {ex.Message} ");
-            }
+            await _orderDataClient.SendProductToOrder(productReadDTO);
 
             return CreatedAtRoute("GetProductById", new { Id=productReadDTO.Id }, productReadDTO);
         }

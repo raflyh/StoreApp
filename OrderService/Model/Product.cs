@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace OrderService.Model
 {
@@ -7,9 +8,17 @@ namespace OrderService.Model
         [Key]
         [Required]
         public int Id { get; set; }
-        public string Name {get; set;}
-        public int ExternalId { get; set; }
+        [Required]
         public string Name { get; set; }
-        public InVoice InVoice { get; set; }
+        [Required]
+        public double Price { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
+        [Required]
+        public int InVoiceId { get; set; }
+        [JsonIgnore]
+        public Category Category { get; set; }
+        [JsonIgnore]
+        public InVoice inVoice { get; set; }
     }
 }

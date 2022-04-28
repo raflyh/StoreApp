@@ -12,17 +12,17 @@ namespace OrderService.Data
 
         public DbSet<InVoice> InVoices { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /*modelBuilder.Entity<InVoice>()
                 .HasOne(i => i.InVoice)
-                .WithMany(p => p.Products)
-                .UsingEntity<BattleSamurai>(
-                bs => bs.HasOne<Battle>().WithMany(),
-                bs => bs.HasOne<Samurai>().WithMany())
-                .Property(bs => bs.DateJoined)
-                .HasDefaultValueSql("getdate()");*/
+                .WithMany(p => p.Products);
+             */
+            modelBuilder.Entity<Category>()
+                .HasMany(x => x.Products)
+                .WithOne(s => s.Category);
         }
     }
 }

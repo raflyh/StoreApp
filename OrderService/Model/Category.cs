@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace ProductService.Models
+namespace OrderService.Model
 {
     public class Category
     {
