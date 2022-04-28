@@ -8,77 +8,54 @@ using OrderService.Model;
 
 namespace OrderService.Controllers
 {
-    /*[Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
         private readonly IInVoiceRepo _repository;
         private readonly IMapper _mapper;
-        private readonly IProductDataClient _productDataClient;
-        private readonly IMessageBusClient _messageBusClient;
 
-        public OrderController(IInVoiceRepo repository, IMapper mapper,
-        IProductDataClient productDataClient, IMessageBusClient messageBusClient)
+        public OrderController(IInVoiceRepo repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _productDataClient = productDataClient;
-            _messageBusClient = messageBusClient;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<OrderReadDto>> GetInvoices()
+        public ActionResult<IEnumerable<OrderReadDto>> GetOrderForProduct(int platformId)
         {
-            Console.WriteLine("--> Get Order");
-            var results = _repository.GetAllInvoice();
-            var orderReadDtos = _mapper.Map<IEnumerable<OrderReadDto>>(results);
-            return Ok(orderReadDtos);
+            Console.WriteLine($"----> Semua Order dari product {platformId}");
+            if (!_repository.ProductExist(platformId)) ;
+            return NotFound();
+
+            var orders = _repository.GetOrderForProduct(platformId);
+            var orderReadDto = _mapper.Map<IEnumerable<OrderReadDto>>(orders);
+            return Ok(orderReadDto);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<OrderReadDto> GetOrderById(int id)
+        [HttpGet("{OrderId}")]
+        public ActionResult<OrderReadDto> GetOrderForProduct(int productId, int inVoiceId)
         {
-            var results = _repository.GetOrderById(id);
-            if (results == null) return NotFound();
+            Console.WriteLine($"--> Satu shipping dari invoice {productId} / {inVoiceId}");
+            if (!_repository.ProductExist(productId))
+                return NotFound();
 
-            var orderReadDto = _mapper.Map<OrderReadDto>(results);
-            return orderReadDto;
+            var order = _repository.GetInVoice(productId, inVoiceId);
+            if (order == null) return NotFound();
+
+            return Ok(_mapper.Map<OrderReadDto>(order));
         }
 
-        [HttpGet("{CodeInVoice}")]
-        public ActionResult<OrderReadDto> GetByName(string name)
+        [HttpGet("GetByName")]
+        public ActionResult<ProductReadDto> GetProductByName(string name)
         {
-            var results = _repository.GetByName(name);
-            if (results == null) return NotFound();
+            Console.WriteLine($"----> satu shipping dengan CodeInvoice {name}");
 
-            var orderReadDto = _mapper.Map<OrderReadDto>(results);
-            return orderReadDto;
+            var order = _repository.GetProductByName(name);
+            if (order == null) return NotFound();
+
+            return Ok(_mapper.Map<ProductReadDto>(order));
         }
 
-
-        [HttpPost]
-        public async Task<ActionResult<OrderReadDto>> CreatePlatform(OrderCreateDto orderCreateDto)
-        {
-            var newOrder = _mapper.Map<InVoice>(orderCreateDto);
-            _repository.CreateInVoice(newOrder);
-            _repository.SaveChanges();
-
-            var orderReadDto = _mapper.Map<OrderReadDto>(newOrder);
-
-            
-            try
-            {
-                var orderPublishDto = _mapper.Map<OrderPublishDto>(orderReadDto);
-                orderPublishDto.Order = "Order_Published";
-                _messageBusClient.PublishNewInVoice(orderPublishDto);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"--> Tidak dapat mengirimkan async message {ex.Message}");
-            }
-
-            return CreatedAtAction(nameof(GetOrderById), new { Id = orderReadDto.Id },
-                orderReadDto);
-        }
-    }*/
+    }
 }
