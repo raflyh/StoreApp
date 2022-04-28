@@ -14,26 +14,42 @@ namespace OrderService.Data
         {
             _context = context;
         }
-        public void CreateInVoice(InVoice invoice)
+
+        public void CreateInVoice(int productId, InVoice inVoice)
         {
-            if (invoice == null)
-                throw new ArgumentNullException(nameof(invoice));
-            _context.Add(invoice);
+            if (inVoice == null)
+                throw new ArgumentNullException(nameof(inVoice));
+            _context.Add(inVoice);
         }
 
-        public IEnumerable<InVoice> GetAllInvoice()
+        public void CreateProduct(InVoice invoice)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<InVoice> GetAllProducts()
         {
             return _context.InVoices.AsNoTracking().ToList();
         }
 
-        public InVoice GetByName(string name)
+        public Product GetByName(string name)
         {
-            return _context.InVoices.Where(s=>s.CodeInvoice.Contains(name)).FirstOrDefault();    
+            return _context.Products.Where(s => s.Name.Contains(name)).FirstOrDefault();
         }
 
-        public InVoice GetOrderById(int id)
+        public InVoice GetInVoice(int productId, int inVoiceId)
         {
-            return _context.InVoices.FirstOrDefault(i => i.Id == id);
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<InVoice> GetOrderForProduct(int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _context.Products.FirstOrDefault(i => i.Id == id);
         }
 
         public bool SaveChanges()
