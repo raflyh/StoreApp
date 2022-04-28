@@ -15,15 +15,7 @@ namespace OrderService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Product>()
-            .HasMany(p => p.Products)
-            .WithOne(p => p.InVoices)
-            .HasForeignKey(p => p.PlatformId);
-
-            modelBuilder.Entity<Command>()
-            .HasOne(c => c.Platform)
-            .WithMany(c => c.Commands)
-            .HasForeignKey(c => c.PlatformId);*/
+            
         }
     }
 }
