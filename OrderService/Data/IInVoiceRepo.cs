@@ -14,7 +14,7 @@ namespace OrderService.Interface
         
 
         //order
-        //IEnumerable<InVoice> GetOrderForProduct(int productId);
+        IEnumerable<InVoice> GetOrderForProduct(int productId);
         InVoice GetInVoice(int productId, int inVoiceId);
         void CreateInVoice(int productId, InVoice inVoice);
 

@@ -15,14 +15,15 @@ namespace OrderService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<InVoice>()
-                .HasOne(i => i.InVoice)
-                .WithMany(p => p.Products)
-                .UsingEntity<BattleSamurai>(
-                bs => bs.HasOne<Battle>().WithMany(),
-                bs => bs.HasOne<Samurai>().WithMany())
-                .Property(bs => bs.DateJoined)
-                .HasDefaultValueSql("getdate()");*/
+            /*modelBuilder.Entity<Product>()
+            .HasMany(p => p.Products)
+            .WithOne(p => p.InVoices)
+            .HasForeignKey(p => p.PlatformId);
+
+            modelBuilder.Entity<Command>()
+            .HasOne(c => c.Platform)
+            .WithMany(c => c.Commands)
+            .HasForeignKey(c => c.PlatformId);*/
         }
     }
 }

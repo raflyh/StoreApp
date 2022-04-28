@@ -8,10 +8,14 @@ namespace OrderService.Profiles
     {
         public OrdersProfile()
         {
-            CreateMap<InVoice, OrderReadDto>();
-            CreateMap<OrderCreateDto, InVoice>();
-            CreateMap<OrderReadDto, OrderPublishDto>();
             CreateMap<Product, ProductReadDto>();
+            CreateMap<OrderCreateDto, InVoice>();
+            CreateMap<InVoice, OrderReadDto>();
+            CreateMap<ProductPublishedDto, Product>().ForMember(dest=>dest.ExternalId,
+                opt=>opt.MapFrom(src=>src.Id));
+
+           
+            
 
         }
     }

@@ -47,6 +47,10 @@ namespace OrderService.Data
             i.Id == inVoiceId).FirstOrDefault(); ;
         }
 
+        public IEnumerable<InVoice> GetOrderForProduct(int productId)
+        {
+            throw new NotImplementedException();
+        }
 
         public Product GetProductByName(string name)
         {
