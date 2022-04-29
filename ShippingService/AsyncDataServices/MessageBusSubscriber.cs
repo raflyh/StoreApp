@@ -8,16 +8,16 @@ namespace ShippingService.AsyncDataServices
     public class MessageBusSubscriber : BackgroundService
     {
         private readonly IConfiguration _configuration;
-        private readonly IOrderProcessor _orderProcessor;
+        private readonly IEventProcessor _eventProcessor;
         private IConnection _connection;
         private IModel _channel;
         private string _queueName;
 
         public MessageBusSubscriber(IConfiguration configuration,
-            IOrderProcessor orderProcessor)
+            IEventProcessor eventProcessor)
         {
             _configuration = configuration;
-            _orderProcessor = orderProcessor;
+            _eventProcessor = eventProcessor;
 
             InitializeRabbitMQ();
         }
@@ -63,7 +63,7 @@ namespace ShippingService.AsyncDataServices
                 Console.WriteLine("--> Event Received");
                 var body = ea.Body;
                 var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
-                _orderProcessor.ProcessOrder(notificationMessage);
+                _eventProcessor.ProcessEvent(notificationMessage);
             };
 
             _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);

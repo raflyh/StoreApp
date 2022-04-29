@@ -5,25 +5,25 @@ using ShippingService.EventProcessing;
 using ShippingService.Models;
 using System.Text.Json;
 
-namespace ShippingService.OrderProcessing
+namespace ShippingService.EventProcessing
 {
-    public class OrderProcessor : IOrderProcessor
+    public class EventProcessor : IEventProcessor
     {
         private readonly IMapper _mapper;
         private readonly IServiceScopeFactory _scopeFactory;
 
-        public OrderProcessor(IMapper mapper, IServiceScopeFactory scopeFactory)
+        public EventProcessor(IMapper mapper, IServiceScopeFactory scopeFactory)
         {
             _mapper = mapper;
             _scopeFactory = scopeFactory;
         }
 
-        public void ProcessOrder(string message)
+        public void ProcessEvent(string message)
         {
-            var orderType = DetermineOrder(message);
-            switch (orderType)
+            var EventType = DetermineEvent(message);
+            switch (EventType)
             {
-                case OrderType.InVoicePublished:
+                case EventType.InVoicePublished:
                     AddInVoice(message);
                     break;
                 default:
@@ -59,23 +59,23 @@ namespace ShippingService.OrderProcessing
 
         }
 
-        private OrderType DetermineOrder(string notificationMessage)
+        private EventType DetermineEvent(string notificationMessage)
         {
-            Console.WriteLine("--> Menentukan Order");
-            var orderType = JsonSerializer.Deserialize<GenericOrderDto>(notificationMessage);
-            switch (orderType.Order)
+            Console.WriteLine("--> Menentukan Event");
+            var eventType = JsonSerializer.Deserialize<GenericEventDto>(notificationMessage);
+            switch (eventType.Event)
             {
                 case "InVoice_Published":
-                    Console.WriteLine("--> InVoice Published Order detected...");
-                    return OrderType.InVoicePublished;
+                    Console.WriteLine("--> InVoice Published Event detected...");
+                    return EventType.InVoicePublished;
                 default:
-                    Console.WriteLine("--> Can't determined this order...");
-                    return OrderType.Undetermined;
+                    Console.WriteLine("--> Can't determined this Event...");
+                    return EventType.Undetermined;
             }
         }
 
     }
-    enum OrderType
+    enum EventType
     {
         InVoicePublished,
         Undetermined
