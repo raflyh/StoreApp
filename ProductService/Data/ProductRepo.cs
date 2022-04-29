@@ -31,9 +31,9 @@ namespace ProductService.Interface
             return _context.Products.FirstOrDefault(p => p.Id == id);
         }
 
-        public Product GetProductByName(string name)
+        public IEnumerable<Product> GetProductByName(string name)
         {
-            return _context.Products.FirstOrDefault(p => p.Name == name);
+            return _context.Products.Where(s => s.Name.Contains(name)).ToList();
         }
 
         public void RemoveProduct(int id)

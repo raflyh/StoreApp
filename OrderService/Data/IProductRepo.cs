@@ -5,7 +5,7 @@ namespace OrderService.Data
     public interface IProductRepo
     {
         IEnumerable<Product> GetAllProducts();
-        Product GetProductById(int id);
+        IEnumerable<Product> GetProductByName(string name);
         Product CreateProduct(Product prod);
     }
 }

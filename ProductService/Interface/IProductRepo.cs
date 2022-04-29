@@ -6,7 +6,7 @@ namespace ProductService.Interface
     {
         IEnumerable<Product> GetAllProducts();
         Product GetById(int id);
-        Product GetProductByName(string name);
+        IEnumerable<Product> GetProductByName(string name);
         Task<Product> CreateProduct(Product product);
         void RemoveProduct(int id);
         Product UpdateProduct(int id,Product product);

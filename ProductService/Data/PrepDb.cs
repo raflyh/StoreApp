@@ -69,14 +69,14 @@ namespace ProductService.Data
                     );
                 context.SaveChanges();
                 context.Products.AddRange(
-                    new Product() { Id = 1, Name = "Gundam Model X", Price = 500.000 , CategoryId = 1},
-                    new Product() { Id = 2, Name = "Tamiya Model Z", Price = 250.000 , CategoryId = 1},
-                    new Product() { Id = 3, Name = "Pet Collar", Price = 50.000, CategoryId = 2 },
-                    new Product() { Id = 4, Name = "Cat Food 1Kg", Price = 250.000, CategoryId = 2 },
-                    new Product() { Id = 5, Name = "Guitar Strings", Price = 125.000, CategoryId = 3 },
-                    new Product() { Id = 6, Name = "Drum Stick", Price = 80.000, CategoryId = 3 },
-                    new Product() { Id = 7, Name = "Instant Ramen 20pcs", Price = 50.000, CategoryId = 4 },
-                    new Product() { Id = 8, Name = "Wagyu Beef 200g", Price = 250.000, CategoryId = 4 }
+                    new Product() { Id = 1, Name = "Gundam Model X", Price = 500000 , CategoryId = 1},
+                    new Product() { Id = 2, Name = "Tamiya Model Z", Price = 250000 , CategoryId = 1},
+                    new Product() { Id = 3, Name = "Pet Collar", Price = 50000, CategoryId = 2 },
+                    new Product() { Id = 4, Name = "Cat Food 1Kg", Price = 250000, CategoryId = 2 },
+                    new Product() { Id = 5, Name = "Guitar Strings", Price = 125000, CategoryId = 3 },
+                    new Product() { Id = 6, Name = "Drum Stick", Price = 80000, CategoryId = 3 },
+                    new Product() { Id = 7, Name = "Instant Ramen 20pcs", Price = 50000, CategoryId = 4 },
+                    new Product() { Id = 8, Name = "Wagyu Beef 200g", Price = 250000, CategoryId = 4 }
                     );
                 context.SaveChanges();
             }

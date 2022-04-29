@@ -15,7 +15,7 @@ namespace ProductService.SyncDataServices.Http
             _configuration = configuration;
         }
 
-        public async Task SendProductToOrder(ProductCreateDTO product)
+        public async Task SendProductToOrder(ProductPushDTO product)
         {
             var httpContent = new StringContent(JsonSerializer.Serialize(product), Encoding.UTF8, "application/json");
             Console.WriteLine(httpContent.ToString());

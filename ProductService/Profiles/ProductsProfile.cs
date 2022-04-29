@@ -9,6 +9,7 @@ namespace ProductService.Profiles
         public ProductsProfile()
         {
             CreateMap<Product, ProductReadDTO>();
+            CreateMap<Product, ProductPushDTO>();
             CreateMap<ProductCreateDTO, Product>();
         }
     }

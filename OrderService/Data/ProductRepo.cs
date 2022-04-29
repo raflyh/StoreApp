@@ -12,7 +12,9 @@ namespace OrderService.Data
         }
         public Product CreateProduct(Product prod)
         {
-            throw new NotImplementedException();
+            _context.Products.Add(prod);
+            _context.SaveChanges();
+            return prod;
         }
 
         public IEnumerable<Product> GetAllProducts()
@@ -20,9 +22,9 @@ namespace OrderService.Data
             return _context.Products.ToList();
         }
 
-        public Product GetProductById(int id)
+        public IEnumerable<Product> GetProductByName(string name)
         {
-            return _context.Products.FirstOrDefault(p => p.Id == id);
+            return _context.Products.Where(s => s.Name.Contains(name)).ToList();
         }
     }
 }

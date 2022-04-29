@@ -14,31 +14,31 @@ namespace OrderService.Controllers
     {
 
         private readonly IMapper _mapper;
-        private readonly IProductRepo _repo1;
+        private readonly IProductRepo _repository;
 
-        public ProductsController(IMapper mapper, IProductRepo repo1)
+        public ProductsController(IMapper mapper, IProductRepo repository)
         {
             
             _mapper = mapper;
-            _repo1 = repo1;
+            _repository = repository;
         }
         [HttpGet]
         public ActionResult<IEnumerable<ProductReadDto>> GetProducts()
         {
             Console.WriteLine("--> Getting Products --<");
-            var results = _repo1.GetAllProducts();
+            var results = _repository.GetAllProducts();
             var productReadDto = _mapper.Map<IEnumerable<ProductReadDto>>(results);
             return Ok(productReadDto);
         }
         [HttpPost]
-        public ActionResult PushProduct(ProductCreateDto productCreateDTO)
+        public ActionResult PushProduct(ProductReadDto productReadDto)
         {
             //Console.WriteLine("----> Inbound Post OrderService");
             //return Ok("Inbound tes dari product controller");
-            var product = _mapper.Map<Product>(productCreateDTO);
-            var result = _repo1.CreateProduct(product);
+            var product = _mapper.Map<Product>(productReadDto);
+            var result = _repository.CreateProduct(product);
             Console.WriteLine("--> Products succesfully added!");
-            var newproduct = _mapper.Map<ProductReadDto>(result);
+            var newproduct = _mapper.Map<ProductReadDto>(product);
             return Ok(newproduct);
         }
 

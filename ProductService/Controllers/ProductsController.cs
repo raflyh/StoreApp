@@ -64,11 +64,10 @@ namespace ProductService.Controllers
             _repository.SaveChanges();
 
             var productReadDTO = _mapper.Map<ProductReadDTO>(newProduct);
-            var post = new ProductCreateDTO
+            var post = new ProductPushDTO
             {
                 Name = productCreateDTO.Name,
-                Price = productCreateDTO.Price,
-                CategoryId = productCreateDTO.CategoryId
+                Price = productCreateDTO.Price
             };
 
             await _orderDataClient.SendProductToOrder(post);
