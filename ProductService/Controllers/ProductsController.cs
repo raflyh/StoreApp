@@ -67,8 +67,7 @@ namespace ProductService.Controllers
             var post = new ProductPushDTO
             {
                 Name = productCreateDTO.Name,
-                Price = productCreateDTO.Price,
-                Quantity = productCreateDTO.Quantity
+                Price = productCreateDTO.Price
             };
 
             await _orderDataClient.SendProductToOrder(post);

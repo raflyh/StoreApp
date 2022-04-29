@@ -10,7 +10,7 @@ namespace OrderService.Data
 
         }
 
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<InVoice> InVoices { get; set; }
         public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

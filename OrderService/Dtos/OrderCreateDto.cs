@@ -8,7 +8,7 @@ namespace OrderService.Dtos
         public string CodeInVoice { get; set; }
         
         [Required]
-        public double TotalCost { get; set; }
+        public int TotalCost { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
