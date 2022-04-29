@@ -15,7 +15,7 @@ namespace OrderService.Model
         public DateTime Date { get; set; }
         //public string OrderStatus { get; set; }
         //public int ProductId { get; set; }
-        public List<Product> Products { get; set; }
+        //public List<Product> Products { get; set; }
 
     }
 }
