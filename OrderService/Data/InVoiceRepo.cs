@@ -15,12 +15,12 @@ namespace OrderService.Data
             _context = context;
         }
 
-        public void CreateInVoice(int productId, InVoice inVoice) //Product, bukan InVoice
+        public void CreateInVoice( InVoice inVoice) //Product, bukan InVoice
         {
             if(inVoice == null)
                 throw new ArgumentNullException(nameof(inVoice));
 
-            inVoice.ProductId = productId;
+            
             _context.InVoices.Add(inVoice);
         }
 
