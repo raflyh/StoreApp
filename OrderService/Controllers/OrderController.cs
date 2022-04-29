@@ -21,7 +21,7 @@ namespace OrderService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<IEnumerable<OrderReadDto>> GetOrderForProduct(int platformId)
         {
             Console.WriteLine($"----> Semua Order dari product {platformId}");
@@ -31,9 +31,9 @@ namespace OrderService.Controllers
             var orders = _repository.GetOrderForProduct(platformId);
             var orderReadDto = _mapper.Map<IEnumerable<OrderReadDto>>(orders);
             return Ok(orderReadDto);
-        }
+        }*/
 
-        [HttpGet("{OrderId}")]
+        /*[HttpGet("{OrderId}")]
         public ActionResult<OrderReadDto> GetOrderForProduct(int productId, int inVoiceId)
         {
             Console.WriteLine($"--> Satu shipping dari invoice {productId} / {inVoiceId}");
@@ -44,7 +44,7 @@ namespace OrderService.Controllers
             if (order == null) return NotFound();
 
             return Ok(_mapper.Map<OrderReadDto>(order));
-        }
+        }*/
 
         [HttpGet("GetByName")]
         public ActionResult<ProductReadDto> GetProductByName(string name)
