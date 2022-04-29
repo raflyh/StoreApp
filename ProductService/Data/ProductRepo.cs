@@ -12,12 +12,13 @@ namespace ProductService.Interface
         {
             _context = context;
         }
-        public void CreateProduct(Product product)
+        public async Task<Product> CreateProduct(Product product)
         {
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
             _context.Products.Add(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return product;
         }
 
         public IEnumerable<Product> GetAllProducts()

@@ -15,9 +15,10 @@ namespace ProductService.SyncDataServices.Http
             _configuration = configuration;
         }
 
-        public async Task SendProductToOrder(ProductReadDTO product)
+        public async Task SendProductToOrder(ProductCreateDTO product)
         {
             var httpContent = new StringContent(JsonSerializer.Serialize(product), Encoding.UTF8, "application/json");
+            Console.WriteLine(httpContent.ToString());
             var response = await _httpClient.PostAsync($"{_configuration["OrderService"]}", httpContent);
 
             if (response.IsSuccessStatusCode)

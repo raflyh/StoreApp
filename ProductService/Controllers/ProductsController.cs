@@ -64,8 +64,14 @@ namespace ProductService.Controllers
             _repository.SaveChanges();
 
             var productReadDTO = _mapper.Map<ProductReadDTO>(newProduct);
+            var post = new ProductCreateDTO
+            {
+                Name = productCreateDTO.Name,
+                Price = productCreateDTO.Price,
+                CategoryId = productCreateDTO.CategoryId
+            };
 
-            await _orderDataClient.SendProductToOrder(productReadDTO);
+            await _orderDataClient.SendProductToOrder(post);
 
             return CreatedAtRoute("GetProductById", new { Id=productReadDTO.Id }, productReadDTO);
         }
