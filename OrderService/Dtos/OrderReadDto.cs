@@ -9,6 +9,6 @@
         public int TotalCost { get; set; }
         
         public DateTime Date { get; set; }
-        public int ProductId { get; set; }
+        //public int ProductId { get; set; }
     }
 }

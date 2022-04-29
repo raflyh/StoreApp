@@ -2,7 +2,7 @@
 
 namespace OrderService.Model
 {
-    public class InVoice
+    public class Order
     {
         [Key]
         [Required]

@@ -12,20 +12,29 @@ namespace OrderService.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly IInVoiceRepo _repository;
+        private readonly IOrderRepo _repository;
         private readonly IMapper _mapper;
 
-        public OrderController(IInVoiceRepo repository, IMapper mapper)
+        public OrderController(IOrderRepo repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
-
+        [HttpPost]
+        public ActionResult<OrderCreateDto> CreateOrder(OrderCreateDto orderCreateDto, ProductReadDto productReadDto)
+        {
+            Console.WriteLine("--> Creating Orders --<");
+            var product = _mapper.Map<Product>(productReadDto);
+            var order = _mapper.Map<Order>(orderCreateDto);
+            var result = _repository.CreateOrder(order, product);
+            var neworder = _mapper.Map<OrderReadDto>(result);
+            return Ok(neworder);
+        }
         [HttpGet]
         public ActionResult<IEnumerable<OrderReadDto>> GetInVoice()
         {
             Console.WriteLine("--> Getting Invoices --<");
-            var results = _repository.GetAllInVoices();
+            var results = _repository.GetOrders();
             var orderReadDto = _mapper.Map<IEnumerable<OrderReadDto>>(results);
             return Ok(orderReadDto);
         }

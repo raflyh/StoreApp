@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductsConn")));
 //Inject Repository
-builder.Services.AddScoped<IInVoiceRepo, InVoiceRepo>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
 builder.Services.AddSingleton<IMessageBusClient,MessageBusClient>();

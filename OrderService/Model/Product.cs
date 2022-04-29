@@ -12,6 +12,8 @@ namespace OrderService.Model
         public string Name { get; set; }
         [Required]
         public double Price { get; set; }
+        [Required]
+        public double Quantity { get; set; }
         //[Required]
         //public int InVoiceId { get; set; }
 
