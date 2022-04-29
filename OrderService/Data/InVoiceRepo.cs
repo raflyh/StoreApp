@@ -57,7 +57,7 @@ namespace OrderService.Data
 
         public Product GetProductById(int id)
         {
-            return _context.Products.FirstOrDefault(p => p.Id == id);
+            throw new NotImplementedException();
         }
 
         public Product GetProductByName(string name)

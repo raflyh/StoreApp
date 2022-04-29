@@ -6,9 +6,7 @@ namespace OrderService.Interface
     {
         bool SaveChanges();
         //product
-        IEnumerable<Product> GetAllProducts();
-        Product GetProductById(int id);
-        Product CreateProduct(Product prod);
+
 
         
 
