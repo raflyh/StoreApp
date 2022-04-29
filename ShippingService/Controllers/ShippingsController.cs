@@ -7,7 +7,7 @@ using ShippingService.Models;
 
 namespace ShippingService.Controllers
 {
-    [Route("api/c/inVoices/{inVoiceId}/[controller]")]
+    [Route("api/s/inVoices/{inVoiceId}/[controller]")]
     [ApiController]
     public class ShippingsController : ControllerBase
     {
