@@ -15,7 +15,7 @@ namespace OrderService.Data
             _context = context;
         }
 
-        public void CreateInVoice(int productId, InVoice inVoice)
+        public void CreateInVoice(int productId, InVoice inVoice) //Product, bukan InVoice
         {
             if(inVoice == null)
                 throw new ArgumentNullException(nameof(inVoice));
