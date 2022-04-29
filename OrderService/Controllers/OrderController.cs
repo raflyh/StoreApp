@@ -14,13 +14,15 @@ namespace OrderService.Controllers
     {
         private readonly IOrderRepo _repository;
         private readonly IMapper _mapper;
+        private readonly IMessageBusClient _messageBusClient;
 
-        public OrderController(IOrderRepo repository, IMapper mapper)
+        public OrderController(IOrderRepo repository, IMapper mapper, IMessageBusClient messageBusClient)
         {
             _repository = repository;
             _mapper = mapper;
+            _messageBusClient = messageBusClient;
         }
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult<OrderCreateDto> CreateOrder(OrderCreateDto orderCreateDto, ProductReadDto productReadDto)
         {
             Console.WriteLine("--> Creating Orders --<");
@@ -29,9 +31,9 @@ namespace OrderService.Controllers
             var result = _repository.CreateOrder(order, product);
             var neworder = _mapper.Map<OrderReadDto>(result);
             return Ok(neworder);
-        }
+        }*/
         [HttpGet]
-        public ActionResult<IEnumerable<OrderReadDto>> GetInVoice()
+        public ActionResult<IEnumerable<OrderReadDto>> GetOrder()
         {
             Console.WriteLine("--> Getting Invoices --<");
             var results = _repository.GetOrders();
@@ -39,7 +41,7 @@ namespace OrderService.Controllers
             return Ok(orderReadDto);
         }
 
-        [HttpGet("GetById")]
+        [HttpGet("{id}")]
         public ActionResult<OrderReadDto> GetOrderById(int orderId)
         {
             Console.WriteLine($"----> satu InVoice dari Product {orderId}");
@@ -50,7 +52,7 @@ namespace OrderService.Controllers
             return Ok(_mapper.Map<OrderReadDto>(order)); 
         }
 
-        [HttpGet("GetByName")]
+        /*[HttpGet("GetByName")]
         public ActionResult<OrderReadDto> GetInVoiceByName(string name)
         {
             Console.WriteLine($"----> satu shipping dengan CodeInvoice {name}");
@@ -59,6 +61,32 @@ namespace OrderService.Controllers
             if (order == null) return NotFound();
 
             return Ok(_mapper.Map<OrderReadDto>(order)); //seharusnya bukan memanggil DTO Produk, harusnya invoice dengan namaproduk
+        }*/
+
+        [HttpPost]
+        public async Task<ActionResult<OrderReadDto>> CreateOrder(OrderCreateDto orderCreateDto)
+        {
+            var newOrder = _mapper.Map<Order>(orderCreateDto);
+            _repository.CreateOrder(newOrder);
+            _repository.SaveChanges();
+
+            var orderReadDto = _mapper.Map<OrderReadDto>(newOrder);
+
+
+            //kirim async
+            try
+            {
+                var orderPublishDto = _mapper.Map<OrderPublishDto>(orderReadDto);
+                orderPublishDto.Event = "Order_Published";
+                _messageBusClient.PublishNewOrder(orderPublishDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"--> Tidak dapat mengirimkan async message {ex.Message}");
+            }
+
+            return CreatedAtAction(nameof(GetOrderById), new { Id = orderReadDto.Id },
+                orderReadDto);
         }
 
     }

@@ -16,47 +16,31 @@ namespace OrderService.Data
             _context = context;
         }
 
-        public Order CreateOrder( Order order, Product product) //Product, bukan InVoice
+        public void CreateOrder(Order order)
         {
-            var checkproduct = _context.Products.Where(product => product.Quantity>0);
-            if (checkproduct == null)
-                throw new ArgumentNullException(nameof(checkproduct));
-            else
-                order.TotalCost.Equals(product.Quantity * product.Price);
-                _context.Orders.Add(order);
-            _context.SaveChanges();
-            return order;
+            if (order == null)
+                throw new ArgumentNullException(nameof(order));
+            _context.Add(order);
         }
-
-        public IEnumerable<Order> GetOrders()
-        {
-            return _context.Orders.ToList();
-        }
-
-        /*public InVoice GetInVoice(int productId, int inVoiceId)
-        {
-            return _context.InVoices.Where(i => i.ProductId == productId &&
-            i.Id == inVoiceId).FirstOrDefault(); ;
-        }*/
 
         public Order GetOrderById(int id)
         {
-            return _context.Orders.FirstOrDefault(i => i.Id == id);
+            return _context.Orders.FirstOrDefault(p => p.Id == id);
         }
 
-        public Order GetOrderByName(string name)
+        /*public Order GetOrderByName(string name)
         {
             return _context.Orders.FirstOrDefault(i => i.CodeInVoice == name);
+        }*/
+
+        public IEnumerable<Order> GetOrders()
+        {
+            return _context.Orders.AsNoTracking().ToList();
         }
 
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
-        }
-
-        public IEnumerable<Product> GetProducts()
-        {
-            return _context.Products.ToList();
         }
     }
 }

@@ -4,6 +4,6 @@ namespace OrderService.AsyncDataService
 {
     public interface IMessageBusClient
     {
-        void PublishNewInVoice(OrderPublishDto orderPublishDto);
+        void PublishNewOrder(OrderPublishDto orderPublishDto);
     }
 }

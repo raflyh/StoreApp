@@ -38,7 +38,7 @@ namespace OrderService.AsyncDataService
             Console.WriteLine("--> RabbitMQ Connection Shutdown");
         }
 
-        public void PublishNewInVoice(OrderPublishDto orderPublishDto)
+        public void PublishNewOrder(OrderPublishDto orderPublishDto)
         {
             var message = JsonSerializer.Serialize(orderPublishDto);
             if (_connection.IsOpen)

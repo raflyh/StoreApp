@@ -7,11 +7,11 @@ namespace OrderService.Interface
         bool SaveChanges();
         //order
         IEnumerable<Order> GetOrders();
-        IEnumerable<Product> GetProducts();
+        //IEnumerable<Product> GetProducts();
         //InVoice GetInVoice(int productId, int inVoiceId);
-        Order CreateOrder( Order order, Product product);
+        void CreateOrder( Order order);
         Order GetOrderById(int id);
-        Order GetOrderByName(string name);
+        //Order GetOrderByName(string name);
 
     }
 }

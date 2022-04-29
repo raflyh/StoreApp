@@ -6,8 +6,9 @@
 
         public string CodeInvoice { get; set; }
 
-        public int TotalCost { get; set; }
+        public int Price { get; set; }
 
         public DateTime Date { get; set; }
+        public string Event { get; set; }
     }
 }
