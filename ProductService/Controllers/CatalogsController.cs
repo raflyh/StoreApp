@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.DTOs;
 using ProductService.Interface;
@@ -8,6 +9,7 @@ using ProductService.Models;
 
 namespace ProductService.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CatalogsController : ControllerBase

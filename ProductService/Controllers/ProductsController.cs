@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.DTOs;
 using ProductService.Interface;
@@ -9,6 +10,7 @@ using ProductService.SyncDataServices.Http;
 
 namespace ProductService.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
