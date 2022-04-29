@@ -9,8 +9,8 @@ namespace OrderService.Profiles
         public OrdersProfile()
         {
             CreateMap<Product, ProductReadDto>();
-            CreateMap<OrderCreateDto, InVoice>();
-            CreateMap<InVoice, OrderReadDto>();
+            CreateMap<OrderCreateDto, Order>();
+            CreateMap<Order, OrderReadDto>();
             CreateMap<ProductPublishedDto, Product>();
 
            

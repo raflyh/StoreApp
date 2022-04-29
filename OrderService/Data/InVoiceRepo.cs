@@ -6,7 +6,7 @@ using OrderService.Model;
 
 namespace OrderService.Data
 {
-    public class InVoiceRepo : IInVoiceRepo
+    public class InVoiceRepo : IOrder
     {
         private readonly AppDbContext _context;
 
@@ -15,13 +15,13 @@ namespace OrderService.Data
             _context = context;
         }
 
-        public void CreateInVoice( InVoice inVoice) //Product, bukan InVoice
+        public void CreateInVoice( Order inVoice) //Product, bukan InVoice
         {
             if(inVoice == null)
                 throw new ArgumentNullException(nameof(inVoice));
 
             
-            _context.InVoices.Add(inVoice);
+            _context.Orders.Add(inVoice);
         }
 
         public Product CreateProduct(Product prod)
@@ -29,9 +29,9 @@ namespace OrderService.Data
             throw new NotImplementedException();
         }
 
-        public IEnumerable<InVoice> GetAllInVoices()
+        public IEnumerable<Order> GetAllInVoices()
         {
-            return _context.InVoices.ToList();
+            return _context.Orders.ToList();
         }
 
         public IEnumerable<Product> GetAllProducts()
@@ -45,14 +45,14 @@ namespace OrderService.Data
             i.Id == inVoiceId).FirstOrDefault(); ;
         }*/
 
-        public InVoice GetOrderById(int id)
+        public Order GetOrderById(int id)
         {
-            return _context.InVoices.FirstOrDefault(i => i.Id == id);
+            return _context.Orders.FirstOrDefault(i => i.Id == id);
         }
 
-        public InVoice GetOrderByName(string name)
+        public Order GetOrderByName(string name)
         {
-            return _context.InVoices.FirstOrDefault(i => i.CodeInVoice == name);
+            return _context.Orders.FirstOrDefault(i => i.CodeInVoice == name);
         }
 
         public Product GetProductById(int id)

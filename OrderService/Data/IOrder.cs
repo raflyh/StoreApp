@@ -2,7 +2,7 @@
 
 namespace OrderService.Interface
 {
-    public interface IInVoiceRepo
+    public interface IOrder
     {
         bool SaveChanges();
         //product
@@ -11,11 +11,11 @@ namespace OrderService.Interface
         
 
         //order
-        IEnumerable<InVoice> GetAllInVoices();
+        IEnumerable<Order> GetAllInVoices();
         //InVoice GetInVoice(int productId, int inVoiceId);
-        void CreateInVoice( InVoice inVoice);
-        InVoice GetOrderById(int id);
-        InVoice GetOrderByName(string name);
+        void CreateInVoice( Order inVoice);
+        Order GetOrderById(int id);
+        Order GetOrderByName(string name);
 
     }
 }
