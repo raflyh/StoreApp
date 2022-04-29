@@ -54,7 +54,7 @@ namespace OrderService.Controllers
             var order = _repository.GetProductByName(name);
             if (order == null) return NotFound();
 
-            return Ok(_mapper.Map<ProductReadDto>(order));
+            return Ok(_mapper.Map<ProductReadDto>(order)); //seharusnya bukan memanggil DTO Produk, harusnya invoice dengan namaproduk
         }
 
     }
