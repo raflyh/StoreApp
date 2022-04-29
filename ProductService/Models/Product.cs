@@ -13,8 +13,6 @@ namespace ProductService.Models
         [Required]
         public double Price { get; set; }
         [Required]
-        public double Quantity { get; set; }
-        [Required]
         public int CategoryId { get; set; }
         [JsonIgnore]
         public Category Category { get; set; }
