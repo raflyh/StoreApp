@@ -8,8 +8,8 @@ namespace OrderService.Profiles
     {
         public ProductsProfile()
         {
-            CreateMap<Product, ProductReadDto>();
-            CreateMap<ProductCreateDto, Product>();
+            CreateMap<Product, ProductReadDto>().ReverseMap();
+            CreateMap<ProductCreateDto, Product>().ReverseMap();
         }
     }
 }
