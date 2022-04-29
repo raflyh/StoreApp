@@ -13,11 +13,8 @@ namespace OrderService.Model
         [Required]
         public double Price { get; set; }
         [Required]
-        public int CategoryId { get; set; }
-        [Required]
         public int InVoiceId { get; set; }
-        [JsonIgnore]
-        public Category Category { get; set; }
+
         [JsonIgnore]
         public InVoice inVoice { get; set; }
     }

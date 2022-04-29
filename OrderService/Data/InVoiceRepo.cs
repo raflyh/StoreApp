@@ -26,14 +26,9 @@ namespace OrderService.Data
 
         public Product CreateProduct(Product prod)
         {
-            if(prod == null)
-                throw new ArgumentNullException(nameof(prod));
-            _context.Categories.Add(prod.Category);
-            _context.Products.Add(prod);
-            _context.SaveChanges();
-            return prod;
+            throw new NotImplementedException();
         }
-            
+
         public IEnumerable<Product> GetAllProducts()
         {
             return _context.Products.ToList();
