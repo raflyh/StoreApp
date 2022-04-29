@@ -29,15 +29,30 @@ namespace OrderService.Data
             throw new NotImplementedException();
         }
 
+        public IEnumerable<InVoice> GetAllInVoices()
+        {
+            return _context.InVoices.ToList();
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             return _context.Products.ToList();
         }
 
-        public InVoice GetInVoice(int productId, int inVoiceId)
+        /*public InVoice GetInVoice(int productId, int inVoiceId)
         {
             return _context.InVoices.Where(i => i.ProductId == productId &&
             i.Id == inVoiceId).FirstOrDefault(); ;
+        }*/
+
+        public InVoice GetOrderById(int id)
+        {
+            return _context.InVoices.FirstOrDefault(i => i.Id == id);
+        }
+
+        public InVoice GetOrderByName(string name)
+        {
+            return _context.InVoices.FirstOrDefault(i => i.CodeInVoice == name);
         }
 
         public Product GetProductById(int id)

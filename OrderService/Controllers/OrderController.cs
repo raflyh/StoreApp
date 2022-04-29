@@ -21,40 +21,35 @@ namespace OrderService.Controllers
             _mapper = mapper;
         }
 
-        /*[HttpGet]
-        public ActionResult<IEnumerable<OrderReadDto>> GetOrderForProduct(int platformId)
+        [HttpGet]
+        public ActionResult<IEnumerable<OrderReadDto>> GetInVoice()
         {
-            Console.WriteLine($"----> Semua Order dari product {platformId}");
-            if (!_repository.ProductExist(platformId)) ;
-            return NotFound();
-
-            var orders = _repository.GetOrderForProduct(platformId);
-            var orderReadDto = _mapper.Map<IEnumerable<OrderReadDto>>(orders);
+            Console.WriteLine("--> Getting Invoices --<");
+            var results = _repository.GetAllInVoices();
+            var orderReadDto = _mapper.Map<IEnumerable<OrderReadDto>>(results);
             return Ok(orderReadDto);
-        }*/
+        }
 
-        /*[HttpGet("{OrderId}")]
-        public ActionResult<OrderReadDto> GetOrderForProduct(int productId, int inVoiceId)
+        [HttpGet("GetById")]
+        public ActionResult<OrderReadDto> GetOrderById(int orderId)
         {
-            Console.WriteLine($"--> Satu shipping dari invoice {productId} / {inVoiceId}");
-            if (!_repository.ProductExist(productId))
-                return NotFound();
+            Console.WriteLine($"----> satu InVoice dari Product {orderId}");
 
-            var order = _repository.GetInVoice(productId, inVoiceId);
+            var order = _repository.GetOrderById(orderId);
             if (order == null) return NotFound();
 
-            return Ok(_mapper.Map<OrderReadDto>(order));
-        }*/
+            return Ok(_mapper.Map<OrderReadDto>(order)); 
+        }
 
         [HttpGet("GetByName")]
-        public ActionResult<ProductReadDto> GetProductByName(string name)
+        public ActionResult<OrderReadDto> GetInVoiceByName(string name)
         {
             Console.WriteLine($"----> satu shipping dengan CodeInvoice {name}");
 
-            var order = _repository.GetProductByName(name);
+            var order = _repository.GetOrderByName(name);
             if (order == null) return NotFound();
 
-            return Ok(_mapper.Map<ProductReadDto>(order)); //seharusnya bukan memanggil DTO Produk, harusnya invoice dengan namaproduk
+            return Ok(_mapper.Map<OrderReadDto>(order)); //seharusnya bukan memanggil DTO Produk, harusnya invoice dengan namaproduk
         }
 
     }
