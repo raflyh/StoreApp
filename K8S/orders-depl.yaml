@@ -27,6 +27,6 @@ spec:
     app: orderservice
   ports :
   - name: orderservice 
-    port: TCP
+    protocol: TCP
     port: 80
     targetPort: 80

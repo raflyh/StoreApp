@@ -26,6 +26,6 @@ spec:
     app: productservice
   ports :
   - name: productservice 
-    port: TCP
+    protocol: TCP
     port: 80
     targetPort: 80

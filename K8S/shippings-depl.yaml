@@ -26,6 +26,6 @@ spec:
     app: shippingservice
   ports :
   - name: shippingservice 
-    port: TCP
+    protocol: TCP
     port: 80
     targetPort: 80
